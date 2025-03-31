@@ -64,91 +64,144 @@ The application will be available at:
 - **API Base URL**: http://localhost:8080
 
 ## API Documentation
+
 ### Endpoints
 
-#### 1. Get SWIFT Code Details
-**URL:** `GET /v1/swift-codes/{swift-code}`
+#### 1. **Get SWIFT Code Details**
+- **URL:** `/v1/swift-codes/{swiftCode}`
+- **Method:** `GET`
+- **Description:** Retrieves details of a specific SWIFT code by its identifier.
+  
+##### Parameters:
+- **Path Parameter:** 
+  - `swiftCode` (string): The SWIFT code you want to retrieve.
 
-**Description:** Retrieves details of a specific SWIFT code. If the code belongs to a headquarters, it also returns all its branches.
-
-**Example Request:**
-```sh
-GET http://localhost:8080/v1/swift-codes/BNPAFRPPXXX
-```
-
-**Example Response (Headquarters):**
-```json
-{
-  "address": "16 BOULEVARD DES ITALIENS, PARIS",
-  "bankName": "BNP PARIBAS",
-  "countryISO2": "FR",
-  "countryName": "FRANCE",
-  "isHeadquarter": true,
-  "swiftCode": "BNPAFRPPXXX",
-  "branches": [
-    {
-      "address": "123 CHAMPS ELYSEES, PARIS",
-      "bankName": "BNP PARIBAS BRANCH",
-      "countryISO2": "FR",
-      "isHeadquarter": false,
-      "swiftCode": "BNPAFRPP123"
-    }
-  ]
-}
-```
-
-#### 2. Get SWIFT Codes by Country
-**URL:** `GET /v1/swift-codes/country/{countryISO2code}`
-
-**Example Request:**
-```sh
-GET http://localhost:8080/v1/swift-codes/country/FR
-```
-
-**Example Response:**
-```json
-{
-  "countryISO2": "FR",
-  "countryName": "FRANCE",
-  "swiftCodes": [
-    {
-      "address": "16 BOULEVARD DES ITALIENS, PARIS",
-      "bankName": "BNP PARIBAS",
-      "countryISO2": "FR",
-      "isHeadquarter": true,
-      "swiftCode": "BNPAFRPPXXX"
-    },
-    {
-      "address": "123 CHAMPS ELYSEES, PARIS",
-      "bankName": "BNP PARIBAS BRANCH",
-      "countryISO2": "FR",
-      "isHeadquarter": false,
-      "swiftCode": "BNPAFRPP123"
-    }
-  ]
-}
-```
-
-### Postman Collection
-You can test the API using our Postman collection. Import the following JSON into Postman:
-```json
-{
-  "info": {
-    "_postman_id": "a1b2c3d4-e5f6-7890",
-    "name": "SWIFT Code API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Get SWIFT Code Details",
-      "request": {
-        "method": "GET",
-        "url": "http://localhost:8080/v1/swift-codes/BNPAFRPPXXX"
+##### Responses:
+- **200 OK:** Successfully retrieved the SWIFT code details.
+  - Example response:
+  ```json
+  {
+    "swiftCode": "BNPAFRPPXXX",
+    "bankName": "BNP PARIBAS",
+    "address": "16 BOULEVARD DES ITALIENS, PARIS",
+    "countryISO2": "FR",
+    "countryName": "FRANCE",
+    "isHeadquarter": true,
+    "branches": [
+      {
+        "swiftCode": "BNPAFRPP123",
+        "bankName": "BNP PARIBAS BRANCH",
+        "address": "123 CHAMPS ELYSEES, PARIS",
+        "countryISO2": "FR",
+        "isHeadquarter": false
       }
-    }
-  ]
-}
-```
+    ]
+  }
+  ```
+- **404 Not Found:** SWIFT code not found.
+  - Example response:
+  ```json
+  {
+    "message": "SWIFT code not found"
+  }
+  ```
+
+#### 2. **Get SWIFT Codes by Country**
+- **URL:** `/v1/swift-codes/country/{countryISO2}`
+- **Method:** `GET`
+- **Description:** Retrieves all SWIFT codes associated with a specific country, based on the ISO 3166-1 alpha-2 code.
+
+##### Parameters:
+- **Path Parameter:** 
+  - `countryISO2` (string): The 2-letter ISO code of the country (e.g., `US` for the United States, `FR` for France).
+
+##### Responses:
+- **200 OK:** Successfully retrieved SWIFT codes for the specified country.
+  - Example response:
+  ```json
+  {
+    "countryISO2": "FR",
+    "countryName": "FRANCE",
+    "swiftCodes": [
+      {
+        "swiftCode": "BNPAFRPPXXX",
+        "bankName": "BNP PARIBAS",
+        "address": "16 BOULEVARD DES ITALIENS, PARIS",
+        "isHeadquarter": true
+      },
+      {
+        "swiftCode": "BNPAFRPP123",
+        "bankName": "BNP PARIBAS BRANCH",
+        "address": "123 CHAMPS ELYSEES, PARIS",
+        "isHeadquarter": false
+      }
+    ]
+  }
+  ```
+- **404 Not Found:** No SWIFT codes found for the specified country.
+  - Example response:
+  ```json
+  {
+    "message": "No SWIFT codes found for the country"
+  }
+  ```
+
+#### 3. **Add a New SWIFT Code**
+- **URL:** `/v1/swift-codes`
+- **Method:** `POST`
+- **Description:** Adds a new SWIFT code to the system.
+
+##### Request Body:
+- **Content-Type:** `application/json`
+- **Body Parameters:** 
+  - `swiftCode` (string): The SWIFT code to be added.
+  - `bankName` (string): The name of the bank.
+  - `address` (string): The address of the bank.
+  - `countryISO2` (string): The 2-letter ISO code of the country.
+  - `countryName` (string): The full name of the country.
+  - `isHeadquarter` (boolean): Whether the SWIFT code represents a headquarter.
+
+##### Responses:
+- **201 Created:** Successfully created the SWIFT code.
+  - Example response:
+  ```json
+  {
+    "message": "SWIFT code created successfully"
+  }
+  ```
+- **400 Bad Request:** Invalid data in the request.
+  - Example response:
+  ```json
+  {
+    "message": "Invalid data in request"
+  }
+  ```
+
+#### 4. **Delete a SWIFT Code**
+- **URL:** `/v1/swift-codes/{swiftCode}`
+- **Method:** `DELETE`
+- **Description:** Deletes a SWIFT code from the system.
+
+##### Parameters:
+- **Path Parameter:** 
+  - `swiftCode` (string): The SWIFT code to delete.
+
+##### Responses:
+- **200 OK:** Successfully deleted the SWIFT code.
+  - Example response:
+  ```json
+  {
+    "message": "SWIFT code deleted successfully"
+  }
+  ```
+- **404 Not Found:** SWIFT code not found.
+  - Example response:
+  ```json
+  {
+    "message": "SWIFT code not found"
+  }
+  ```
+
 
 ## Testing
 To run the test suite:
