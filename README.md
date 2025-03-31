@@ -48,7 +48,7 @@ This project provides a comprehensive REST API for managing SWIFT codes (Bank Id
 ### Running with Docker (Recommended)
 #### Clone the repository:
 ```sh
-git clone https://github.com/yourusername/swift-code-management.git
+git clone https://github.com/huseynliss/swiftcodes-api.git
 cd swift-code-management
 ```
 #### Build and start the containers:
@@ -67,7 +67,7 @@ docker-compose -f docker/docker-compose.yml down
 ### Running Locally
 #### Clone the repository:
 ```sh
-git clone https://github.com/yourusername/swift-code-management.git
+git clone https://github.com/huseynliss/swiftcodes-api.git
 cd swift-code-management
 ```
 #### Start PostgreSQL in Docker:
