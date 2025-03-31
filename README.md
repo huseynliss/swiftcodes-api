@@ -53,7 +53,8 @@ cd swiftcodes-api
 ```
 #### Build and start the containers:
 ```sh
-docker-compose -f docker/docker-compose.yml up -d --build
+docker-compose up -d --build
+
 ```
 The application will be available at:
 - **API Base URL**: http://localhost:8080
