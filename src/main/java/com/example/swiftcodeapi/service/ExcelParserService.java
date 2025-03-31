@@ -97,10 +97,14 @@ public class ExcelParserService {
                         .countryName(countryName)
                         .isHeadquarter(isHeadquarter)
                         .timeZone(timeZone)
+                        .codeType(codeType)
+                        .townName(townName)
                         .build();
 
                 if (!isHeadquarter && swiftCode.length() >= 8) {
-                    code.setHeadquarterCode(swiftCode.substring(0, 8));
+                    String headquarterCode = swiftCode.substring(0, 8) + "XXX";
+
+                    code.setHeadquarterCode(headquarterCode);
                 }
 
                 swiftCodes.add(code);

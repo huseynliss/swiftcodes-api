@@ -23,7 +23,7 @@ public class SwiftCodeService {
                 .orElseThrow(() -> new ResourceNotFoundException("Swift code not found: " + swiftCode));
 
         if (code.isHeadquarter()) {
-            List<SwiftCode> branches = swiftCodeRepository.findBranchesByHeadquarterCode(code.getSwiftCode().substring(0, 8));
+            List<SwiftCode> branches = swiftCodeRepository.findBranchesByHeadquarterCode(code.getSwiftCode());
 
             List<BranchDto> branchDtos = branches.stream()
                     .map(branch -> BranchDto.builder()

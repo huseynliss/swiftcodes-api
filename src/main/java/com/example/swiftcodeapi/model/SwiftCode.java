@@ -26,6 +26,11 @@ public class SwiftCode {
 
     @Column(name = "address")
     private String address;
+    @Column(name = "code_type")
+    private String codeType;
+
+    @Column(name = "town_name")
+    private String townName;
 
     @Column(name = "country_iso2", nullable = false, length = 2)
     private String countryISO2;
@@ -36,7 +41,7 @@ public class SwiftCode {
     @Column(name = "is_headquarter", nullable = false)
     private boolean isHeadquarter;
 
-    @Column(name = "headquarter_code", length = 8)
+    @Column(name = "headquarter_code", length = 11)
     private String headquarterCode;
 
     @Column(name = "time_zone")

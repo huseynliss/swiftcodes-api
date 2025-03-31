@@ -27,8 +27,7 @@ public class SwiftCodeController {
         return ResponseEntity.ok(swiftCodeService.getSwiftCodeDetails(swiftCode));
     }
 
-    @GetMapping("/country/{countryISO2code" +
-            "}")
+    @GetMapping("/country/{countryISO2code}")
     @Operation(summary = "Get all SWIFT codes for a specific country")
     public ResponseEntity<CountrySwiftCodesResponseDto> getSwiftCodesByCountry(@PathVariable String countryISO2code) {
         return ResponseEntity.ok(swiftCodeService.getSwiftCodesByCountry(countryISO2code));

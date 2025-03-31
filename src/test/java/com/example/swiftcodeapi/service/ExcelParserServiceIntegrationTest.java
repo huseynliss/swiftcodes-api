@@ -1,4 +1,3 @@
-
 package com.example.swiftcodeapi.service;
 
 import com.example.swiftcodeapi.model.SwiftCode;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.io.TempDir;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.io.File;
@@ -19,17 +17,13 @@ import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
-class ExcelParserServiceTest {
+class ExcelParserServiceIntegrationTest {
 
     @Mock
     private SwiftCodeRepository swiftCodeRepository;
-
-    @Mock
-    private ApplicationReadyEvent applicationReadyEvent;
 
     @InjectMocks
     private ExcelParserService excelParserService;
@@ -38,7 +32,7 @@ class ExcelParserServiceTest {
     Path tempDir;
 
     private File createTestExcelFile() throws Exception {
-        File file = tempDir.resolve("C:\\\\Users\\\\SAHIN\\\\Downloads\\\\Interns_2025_SWIFT_CODES.xlsx").toFile();
+        File file = tempDir.resolve("swift_codes.xlsx").toFile();
 
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Swift Codes");
@@ -85,6 +79,7 @@ class ExcelParserServiceTest {
         excelParserService.parseExcelFileOnStartup();
 
         verify(swiftCodeRepository, times(1)).count();
+
         verify(swiftCodeRepository, times(1)).saveAll(argThat(list -> {
             List<SwiftCode> codes = (List<SwiftCode>) list;
             return codes.size() == 3 &&
@@ -104,6 +99,7 @@ class ExcelParserServiceTest {
         excelParserService.parseExcelFileOnStartup();
 
         verify(swiftCodeRepository, times(1)).count();
+
         verify(swiftCodeRepository, never()).saveAll(anyList());
     }
 
