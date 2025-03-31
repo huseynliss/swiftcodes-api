@@ -58,7 +58,6 @@ docker-compose up -d --build
 ```
 The application will be available at:
 - **API Base URL**: http://localhost:8080
-- **Swagger UI**: http://localhost:8080/swagger-ui.html
 
 To stop the containers:
 ```sh
