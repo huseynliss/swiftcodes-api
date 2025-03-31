@@ -85,14 +85,11 @@ public class SwiftCodeService {
 
     @Transactional
     public MessageResponseDto addSwiftCode(SwiftCodeRequestDto requestDto) {
-        // Format country code and name to uppercase
         String formattedCountryISO2 = requestDto.getCountryISO2().toUpperCase();
         String formattedCountryName = requestDto.getCountryName().toUpperCase();
 
-        // Determine if this is a headquarters or branch
         boolean isHeadquarter = requestDto.getSwiftCode().endsWith("XXX");
 
-        // Build the Swift Code entity
         SwiftCode swiftCode = SwiftCode.builder()
                 .swiftCode(requestDto.getSwiftCode())
                 .bankName(requestDto.getBankName())
