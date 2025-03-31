@@ -53,7 +53,7 @@ cd swiftcodes-api
 ```
 #### Start PostgreSQL in Docker:
 ```sh
-docker run -d --name swift-postgres -p 5432:5432   -e POSTGRES_USER=postgres   -e POSTGRES_PASSWORD=postgres   -e POSTGRES_DB=swift_codes_db   postgres:15-alpine
+docker-compose up -d --build
 ```
 #### Build and run the application:
 ```sh
