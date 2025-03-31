@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
-class ExcelParserServiceTest {
+class ExcelParserServiceUnitTest {
 
     @Mock
     private SwiftCodeRepository swiftCodeRepository;
