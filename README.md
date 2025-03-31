@@ -45,25 +45,6 @@ This project provides a comprehensive REST API for managing SWIFT codes (Bank Id
 - Docker Compose 2.0+
 - (Optional) Postman for API testing
 
-### Running with Docker (Recommended)
-#### Clone the repository:
-```sh
-git clone https://github.com/huseynliss/swiftcodes-api.git
-cd swiftcodes-api
-```
-#### Build and start the containers:
-```sh
-docker-compose up -d --build
-
-```
-The application will be available at:
-- **API Base URL**: http://localhost:8080
-
-To stop the containers:
-```sh
-docker-compose -f docker/docker-compose.yml down
-```
-
 ### Running Locally
 #### Clone the repository:
 ```sh
