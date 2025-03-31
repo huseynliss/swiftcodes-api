@@ -62,7 +62,6 @@ docker run -d --name swift-postgres -p 5432:5432   -e POSTGRES_USER=postgres   -
 ```
 The application will be available at:
 - **API Base URL**: http://localhost:8080
-- **Swagger UI**: http://localhost:8080/swagger-ui.html
 
 ## API Documentation
 ### Endpoints
